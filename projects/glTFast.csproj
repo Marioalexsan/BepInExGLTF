@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <AssemblyName>com.unity.cloud.gltfast</AssemblyName>
+        <Product>com.unity.cloud.gltfast</Product>
+        <Version>1.0.0</Version>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <RootNamespace>$(AssemblyName)</RootNamespace>
+        <TargetFramework>netstandard2.1</TargetFramework>
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+        <LangVersion>latest</LangVersion>
+        <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <!-- Collections -->
+        <Compile Include="../com.unity.collections/Unity.Collections/**/*.cs" />
+        <Compile Include="../patches/CreatePropertyAttribute.cs" />
+        <Reference Include="Unity.Collections.LowLevel.ILSupport" Publicize="true">
+            <HintPath>..\com.unity.collections\Unity.Collections.LowLevel.ILSupport\Unity.Collections.LowLevel.ILSupport.dll</HintPath>
+        </Reference>
+        
+        <!-- GLTFast -->
+        <Compile Include="../com.unity.cloud.gltfast/Packages/com.unity.cloud.gltfast/Runtime/**/*.cs" />
+        <Compile Remove="../com.unity.cloud.gltfast/Packages/com.unity.cloud.gltfast/Runtime/Scripts/UvTransform.cs" />
+        <Compile Include="../patches/UvTransform.cs" />
+    </ItemGroup>
+</Project>
