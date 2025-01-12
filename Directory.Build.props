@@ -150,5 +150,13 @@
             <HintPath>$(ATLYSS_MANAGED)\UnityEngine.UnityWebRequestModule.dll</HintPath>
             <Private>False</Private>
         </Reference>
+        <Reference Include="UnityEngine.UnityWebRequestTextureModule">
+            <HintPath>$(ATLYSS_MANAGED)\UnityEngine.UnityWebRequestTextureModule.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
+        <Reference Include="Newtonsoft.Json">
+            <HintPath>$(ATLYSS_MANAGED)\Newtonsoft.Json.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
     </ItemGroup>
 </Project>

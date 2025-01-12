@@ -3,6 +3,9 @@
         <AssemblyName>com.unity.cloud.gltfast</AssemblyName>
         <Product>com.unity.cloud.gltfast</Product>
         <Version>1.0.0</Version>
+        <!-- Unity version used by game is 2021.3.16f1 -->
+        <!-- We don't use the editor, so don't define stuff related to that here -->
+        <DefineConstants>UNITY_2021_1_OR_NEWER;UNITY_2021_3_OR_NEWER;UNITY_ANIMATION;UNITY_PHYSICS;UNITY_IMAGECONVERSION;NET_STANDARD;NET_STANDARD_2_1;UNITY_WEBREQUEST_TEXTURE;NEWTONSOFT_JSON;UNITY_STANDALONE_WIN;BURST;</DefineConstants>
     </PropertyGroup>
 
     <PropertyGroup>
@@ -25,5 +28,7 @@
         <Compile Include="../com.unity.cloud.gltfast/Packages/com.unity.cloud.gltfast/Runtime/**/*.cs" />
         <Compile Remove="../com.unity.cloud.gltfast/Packages/com.unity.cloud.gltfast/Runtime/Scripts/UvTransform.cs" />
         <Compile Include="../patches/UvTransform.cs" />
+        <Compile Remove="../com.unity.cloud.gltfast/Packages/com.unity.cloud.gltfast/Runtime/Scripts/GltfJsonUtilityParser.cs" />
+        <Compile Include="../patches/GltfJsonUtilityParser.cs" />
     </ItemGroup>
 </Project>

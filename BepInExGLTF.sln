@@ -10,6 +10,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Directory.Build.props = Directory.Build.props
 	EndProjectSection
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestMod", "TestMod\TestMod.csproj", "{D1B685A7-EA55-4F75-9901-FFEA83360172}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -20,6 +22,10 @@ Global
 		{24B8F532-836C-4254-82BC-F1C9CBE4FE7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{24B8F532-836C-4254-82BC-F1C9CBE4FE7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{24B8F532-836C-4254-82BC-F1C9CBE4FE7D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D1B685A7-EA55-4F75-9901-FFEA83360172}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D1B685A7-EA55-4F75-9901-FFEA83360172}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D1B685A7-EA55-4F75-9901-FFEA83360172}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D1B685A7-EA55-4F75-9901-FFEA83360172}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
