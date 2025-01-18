@@ -1,15 +1,22 @@
 ﻿using BepInEx;
 using BepInEx.Logging;
 using GLTFast;
+using GLTFast.Jobs;
 using GLTFast.Materials;
 using GLTFast.Schema;
 using HarmonyLib;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Reflection.Emit;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using Unity.Burst;
+using Unity.Burst.LowLevel;
 using UnityEngine;
+using static GLTFast.Jobs.CachedFunction;
 
 namespace BepInExGLTFTestMod;
 
@@ -52,6 +59,23 @@ public static class FinderShaderUnlitPatch
     }
 }
 
+[HarmonyPatch(typeof(BurstCompiler), "Compile", typeof(object), typeof(bool))]
+public static class BurstRemove
+{
+    private unsafe static bool Prefix(object delegateObj, out void* __result)
+    {
+        // Let's skip any Burst stuff for GLTF for now
+        if (delegateObj.GetType().Assembly == typeof(GLTFast.GltfAsset).Assembly)
+        {
+            __result = (void*)Marshal.GetFunctionPointerForDelegate(delegateObj);
+            return false;
+        }
+
+        __result = null;
+        return true;
+    }
+}
+
 [BepInPlugin("BepInExGLTFTestMod", "BepInExGLTFTestMod", "1.0.0")]
 public class BepInExGLTFTestMod : BaseUnityPlugin
 {
@@ -74,7 +98,7 @@ public class BepInExGLTFTestMod : BaseUnityPlugin
         _harmony = new Harmony("BepInExGLTFTestMod");
         _harmony.PatchAll();
 
-        _loadedBundle = AssetBundle.LoadFromFile(Path.Combine(Path.GetDirectoryName(Info.Location), "gltf"));
+        //_loadedBundle = AssetBundle.LoadFromFile(Path.Combine(Path.GetDirectoryName(Info.Location), "gltf"));
 
         Logger.LogInfo("Loaded assets:");
 
@@ -98,38 +122,38 @@ public class BepInExGLTFTestMod : BaseUnityPlugin
     //{
     //    try
     //    {
-    //        var gameObj = new GameObject();
+    //        var gameobj = new GameObject();
 
-    //        var gltf = gameObj.AddComponent<GLTFast.GltfAsset>();
-    //        gltf.Url = "file://" + Path.GetFullPath(Path.Combine(Path.GetDirectoryName(Info.Location), "test.glb"));
+    //        var gltf = gameobj.AddComponent<GLTFast.GltfAsset>();
+    //        gltf.url = "file://" + Path.GetFullPath(Path.Combine(Path.GetDirectoryName(Info.Location), "AnimationExportTest.glb"));
 
-    //        Logger.LogInfo("Object made.");
+    //        Logger.LogInfo("object made.");
 
-    //        gameObj.transform.position = Player._mainPlayer.transform.position;
+    //        gameobj.transform.position = Player._mainPlayer.transform.position;
 
-    //        Logger.LogInfo("Spawned.");
-    //        var collider = gameObj.AddComponent<MeshCollider>();
-    //        collider.enabled = true;
-    //        collider.sharedMesh =
+    //        Logger.LogInfo("spawned.");
+    //        //var collider = gameobj.AddComponent<MeshCollider>();
+    //        //collider.enabled = true;
+    //        //collider.sharedMesh =
 
     //        /*
-    //        byte[] data = File.ReadAllBytes(Path.Combine(Path.GetDirectoryName(Info.Location), "test.glb"));
-    //        var gltf = new GltfImport();
+    //        byte[] data = file.readallbytes(path.combine(path.getdirectoryname(info.location), "test.glb"));
+    //        var gltf = new gltfimport();
 
-    //        bool success = gltf.LoadGltfBinary(data).GetAwaiter().GetResult();
+    //        bool success = gltf.loadgltfbinary(data).getawaiter().getresult();
 
     //        if (success)
     //        {
-    //            var gameObj = new GameObject();
-    //            gameObj.transform.position = Player._mainPlayer.transform.position;
+    //            var gameobj = new gameobject();
+    //            gameobj.transform.position = player._mainplayer.transform.position;
 
-    //            success = gltf.InstantiateMainScene(gameObj.transform);
+    //            success = gltf.instantiatemainscene(gameobj.transform);
     //        }
 
-    //        Logger.LogInfo("Object made: " + success);
+    //        logger.loginfo("object made: " + success);
 
 
-    //        Logger.LogInfo("Spawned.");
+    //        logger.loginfo("spawned.");
     //        */
     //    }
     //    catch (Exception e)
